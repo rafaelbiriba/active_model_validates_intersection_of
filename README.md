@@ -2,7 +2,7 @@
 
 ![Gem Version](https://img.shields.io/gem/v/active_model_validates_intersection_of.svg?style=flat-square) [![Code Climate](https://img.shields.io/codeclimate/github/rafaelbiriba/active_model_validates_intersection_of.svg?style=flat-square)](https://codeclimate.com/github/rafaelbiriba/active_model_validates_intersection_of) [![Coverage Status](https://img.shields.io/coveralls/rafaelbiriba/active_model_validates_intersection_of/master.svg?style=flat-square)](https://coveralls.io/r/rafaelbiriba/active_model_validates_intersection_of?branch=master) [![Travis](https://img.shields.io/travis/rafaelbiriba/active_model_validates_intersection_of/master.svg?style=flat-square)](https://travis-ci.org/rafaelbiriba/active_model_validates_intersection_of)
 
-A custom validation for your Active Model that check if an array is included in another one.
+A custom validation for Active Model that check if an array is included in another one.
 
 Identical to the method `validates_inclusion_of` from ActiveModel but for array comparison.
 
@@ -18,7 +18,10 @@ end
 If you want to validate your user based on an array:
 
 ```ruby
- user = User.new(permission:["read", "admin"])
+user = User.new(permission: ["read", "share"])
+user.valid? #true
+
+ user = User.new(permission: ["read", "admin"])
  user.valid? #false
 ```
 
