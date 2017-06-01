@@ -21,8 +21,8 @@ If you want to validate your user based on an array:
 user = User.new(permission: ["read", "share"])
 user.valid? #true
 
- user = User.new(permission: ["read", "admin"])
- user.valid? #false
+user = User.new(permission: ["read", "admin"])
+user.valid? #false
 ```
 
  This active model custom validation **is for you**!
