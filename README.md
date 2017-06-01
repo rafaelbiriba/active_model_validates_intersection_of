@@ -11,7 +11,7 @@ Consider an User model that have some set of "default" permissions.
 ```ruby
 class User < ActiveRecord::Base
   DEFAULT_PERMISSION = ["read", "write", "share"]
-  validates_intersection_of :permission, in: DEFAULT_ROLES
+  validates_intersection_of :permission, in: DEFAULT_PERMISSION
 end
 ```
 
@@ -51,14 +51,14 @@ Or install it yourself as:
 ```ruby
 class User < ActiveRecord::Base
   DEFAULT_PERMISSION = ["read", "write", "share"]
-  validates_intersection_of :permission, in: DEFAULT_ROLES
+  validates_intersection_of :permission, in: DEFAULT_PERMISSION
 end
 ```
 
 ```ruby
 class User < ActiveRecord::Base
   DEFAULT_PERMISSION = ["read", "write", "share"]
-  validates_intersection_of :permission, in: DEFAULT_ROLES, message: "invalid permission"
+  validates_intersection_of :permission, in: DEFAULT_PERMISSION, message: "invalid permission"
 end
 ```
 
@@ -67,7 +67,7 @@ You can also use the custom validation directly:
 ```ruby
 class User < ActiveRecord::Base
   DEFAULT_PERMISSION = ["read", "write", "share"]
-  validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:permission], in: VALID_ARRAY
+  validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:permission], in: DEFAULT_PERMISSION
 end
 ```
 
