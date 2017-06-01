@@ -1,8 +1,23 @@
-# ActiveModelValidatesIntersectionOf
+# Active Model Validates Intersection Of
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/active_model_validates_intersection_of`. To experiment with that code, run `bin/console` for an interactive prompt.
+A custom validation for your Active Model that check if an array is included in another one.
 
-TODO: Delete this and the text above, and describe your gem
+Identical to the method `validates_inclusion_of` from ActiveModel but for array comparison.
+
+Consider an User model that have some set of "default" permissions.
+
+```ruby
+class User < ActiveRecord::Base
+  DEFAULT_PERMISSION = ["read", "write", "share"]
+  validates_intersection_of :permission, in: DEFAULT_ROLES
+end
+```
+
+If you want to validate your user based on an array:
+
+ `User.new(permission:["read", "admin"]).valid? #false`
+
+ This active model custom validation *is for you*!
 
 ## Installation
 
@@ -22,22 +37,44 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+* `in:` parameter is required
+* `message:` is optional
 
-## Development
+```ruby
+class User < ActiveRecord::Base
+  DEFAULT_PERMISSION = ["read", "write", "share"]
+  validates_intersection_of :permission, in: DEFAULT_ROLES
+end
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+class User < ActiveRecord::Base
+  DEFAULT_PERMISSION = ["read", "write", "share"]
+  validates_intersection_of :permission, in: DEFAULT_ROLES, message: "invalid permission"
+end
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+You can also use the custom validation directly:
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/active_model_validates_intersection_of. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+```ruby
+class User < ActiveRecord::Base
+  DEFAULT_PERMISSION = ["read", "write", "share"]
+  validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:permission], in: VALID_ARRAY
+end
+```
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
-## Code of Conduct
+## Contributing
 
-Everyone interacting in the ActiveModelValidatesIntersectionOf project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/active_model_validates_intersection_of/blob/master/CODE_OF_CONDUCT.md).
+First of all, **thank you** for wanting to help!
+
+1. [Fork it](https://help.github.com/articles/fork-a-repo).
+2. Create a feature branch - `git checkout -b more_magic`
+3. Add tests and make your changes
+4. Check if tests are ok - `rake spec`
+5. Commit changes - `git commit -am "Added more magic"`
+6. Push to Github - `git push origin more_magic`
+7. Send a [pull request](https://help.github.com/articles/using-pull-requests)! :heart:
