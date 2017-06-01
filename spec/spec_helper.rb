@@ -1,4 +1,5 @@
 require "bundler/setup"
+require "active_model"
 require "active_model_validates_intersection_of"
 
 RSpec.configure do |config|

@@ -1,5 +1,3 @@
-require "active_model_validates_intersection_of/version"
-
-module ActiveModelValidatesIntersectionOf
-  # Your code goes here...
-end
+require "active_model_validates_intersection_of/version.rb"
+require "active_model_validates_intersection_of/inclusion_intersection_validator.rb"
+require "active_model_validates_intersection_of/validates_intersection_of_alias.rb"
