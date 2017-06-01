@@ -15,9 +15,12 @@ end
 
 If you want to validate your user based on an array:
 
- `User.new(permission:["read", "admin"]).valid? #false`
+```ruby
+ user = User.new(permission:["read", "admin"])
+ user.valid? #false
+```
 
- This active model custom validation *is for you*!
+ This active model custom validation **is for you**!
 
 ## Installation
 
