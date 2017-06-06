@@ -1,7 +1,11 @@
+## v1.1.0 (2017-06-06)
+
+  - Implement `validates :list, intersection: { in: ANOTHER_LIST }` see the README for more information
+
 ## v1.0.0 (2017-06-06)
 
-  - Releasing 1.0 version
-  - Adding `:within` parameter support as an alias for `:in`
+  - Release 1.0 version
+  - Add `:within` parameter support as an alias for `:in`
 
 ## v0.1.0 (2017-06-01)
 
