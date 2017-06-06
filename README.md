@@ -45,8 +45,10 @@ Or install it yourself as:
 
 If your framework doesn't auto require gems, don't forget to do it after require of `active_model` gem.
 
-    require "active_model"
-    require "active_model_validates_intersection_of"
+```ruby
+require "active_model"
+require "active_model_validates_intersection_of"
+```
 
 ## Usage
 
