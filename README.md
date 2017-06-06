@@ -32,7 +32,7 @@ user.valid? #false
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'active_model_validates_intersection_of'
+gem "active_model_validates_intersection_of"
 ```
 
 And then execute:
