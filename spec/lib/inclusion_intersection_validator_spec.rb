@@ -11,30 +11,55 @@ RSpec.describe ActiveModelValidatesIntersectionOf::Validator do
   let(:badsetup) { BadSetupValidator.new }
 
   context "setup" do
-    describe "without an :in configuration" do
+    describe "with neither :in nor :within configuration" do
       it_behaves_like "invalid configuration"
     end
   end
 
-  class ListValidator
-    VALID_ARRAY = ["a", "b", 1 , 2]
-    include ActiveModel::Validations
-    attr_accessor :list
-    validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:list], in: VALID_ARRAY, message: "not valid"
-  end
-
-  let(:valid_partial_array) { ListValidator::VALID_ARRAY.sample(2) }
-  let(:invalid_partial_array) { valid_partial_array + ["invalid"] }
-
-  subject { ListValidator.new }
-
   context "validation" do
-    describe "with a valid list" do
-      it_behaves_like "valid object"
+    context "with :in option" do
+      class ListValidator
+        VALID_ARRAY = ["a", "b", 1 , 2]
+        include ActiveModel::Validations
+        attr_accessor :list
+        validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:list], in: VALID_ARRAY, message: "not valid"
+      end
+
+      let(:valid_partial_array) { ListValidator::VALID_ARRAY.sample(2) }
+      let(:invalid_partial_array) { valid_partial_array + ["invalid"] }
+      subject { ListValidator.new }
+
+      describe "with a valid list" do
+        it_behaves_like "valid object"
+      end
+
+      describe "with an invalid list" do
+        it_behaves_like "invalid object"
+      end
     end
 
-    describe "with an invalid list" do
-      it_behaves_like "invalid object"
+    context "with :within option" do
+      class WithinOptionListValidator
+        VALID_ARRAY = ["a", "b", 1 , 2]
+        include ActiveModel::Validations
+        attr_accessor :list
+        validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:list], within: VALID_ARRAY, message: "not valid"
+      end
+
+      let(:valid_partial_array) { WithinOptionListValidator::VALID_ARRAY.sample(2) }
+      let(:invalid_partial_array) { valid_partial_array + ["invalid"] }
+
+      subject { WithinOptionListValidator.new }
+
+      context "validation with :in option" do
+        describe "with a valid list" do
+          it_behaves_like "valid object"
+        end
+
+        describe "with an invalid list" do
+          it_behaves_like "invalid object"
+        end
+      end
     end
   end
 end
