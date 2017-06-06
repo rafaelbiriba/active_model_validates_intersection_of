@@ -11,7 +11,7 @@ RSpec.describe ActiveModel::Validations::HelperMethods do
   let(:badsetup) { BadSetup.new }
 
   context "setup" do
-    describe "without an :in configuration" do
+    describe "with neither :in nor :within configuration" do
       it_behaves_like "invalid configuration"
     end
   end
