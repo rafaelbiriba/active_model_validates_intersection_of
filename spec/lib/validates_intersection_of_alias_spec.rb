@@ -16,16 +16,15 @@ RSpec.describe ActiveModel::Validations::HelperMethods do
     end
   end
 
-  VALID_ARRAY = ["z", "x", 5 , 6]
-
-  let(:valid_partial_array) { VALID_ARRAY.sample(2) }
-  let(:invalid_partial_array) { valid_partial_array + ["invalid"] }
-
   class List
+    VALID_ARRAY = ["z", "x", 5 , 6]
     include ActiveModel::Validations
     attr_accessor :list
     validates_intersection_of :list, in: VALID_ARRAY, message: "not valid"
   end
+
+  let(:valid_partial_array) { List::VALID_ARRAY.sample(2) }
+  let(:invalid_partial_array) { valid_partial_array + ["invalid"] }
 
   subject { List.new }
 

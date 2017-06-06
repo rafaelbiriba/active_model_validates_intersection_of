@@ -16,18 +16,17 @@ RSpec.describe ActiveModelValidatesIntersectionOf::Validator do
     end
   end
 
-  VALID_ARRAY = ["a", "b", 1 , 2]
-
-  let(:valid_partial_array) { VALID_ARRAY.sample(2) }
-  let(:invalid_partial_array) { valid_partial_array + ["invalid"] }
-
   class ListValidator
+    VALID_ARRAY = ["a", "b", 1 , 2]
     include ActiveModel::Validations
     attr_accessor :list
     validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:list], in: VALID_ARRAY, message: "not valid"
   end
 
-  subject { List.new }
+  let(:valid_partial_array) { ListValidator::VALID_ARRAY.sample(2) }
+  let(:invalid_partial_array) { valid_partial_array + ["invalid"] }
+
+  subject { ListValidator.new }
 
   context "validation" do
     describe "with a valid list" do
