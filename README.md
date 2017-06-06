@@ -52,30 +52,32 @@ require "active_model_validates_intersection_of"
 
 ## Usage
 
+### Parameters
+
 * `:in` - Parameter is required
-* `:within` - A synonym(alias) for `:in`
-* `:message` - Specifies a custom error message (optional)
+* `:within` - *Optional:* A synonym(alias) for `:in`
+* `:message` - *Optional:* Specifies a custom error message
+
+### Validation
+
+You can use the intersection validation in three differents ways: (Feel free to use what you liked more :))
 
 ```ruby
 class User < ActiveRecord::Base
   DEFAULT_PERMISSION = ["read", "write", "share"]
-  validates :permission, intersection: { in: DEFAULT_PERMISSION, message: "invalid permission" }
-end
-```
 
-```ruby
-class User < ActiveRecord::Base
-  DEFAULT_PERMISSION = ["read", "write", "share"]
+  # Using the alias validates_intersection_of
+  validates_intersection_of :permission, in: DEFAULT_PERMISSION, message: "invalid permission"
   validates_intersection_of :permission, within: DEFAULT_PERMISSION, message: "invalid permission"
-end
-```
 
-You can also use the custom validation directly:
-
-```ruby
-class User < ActiveRecord::Base
-  DEFAULT_PERMISSION = ["read", "write", "share"]
+  # Using the validator explicit:
   validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:permission], in: DEFAULT_PERMISSION
+  validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:permission], within: DEFAULT_PERMISSION
+
+  #Using the validator implicit:
+  validates :permission, intersection: { in: DEFAULT_PERMISSION, message: "invalid permission" }
+  validates :permission, intersection: { within: DEFAULT_PERMISSION, message: "invalid permission" }
+
 end
 ```
 
