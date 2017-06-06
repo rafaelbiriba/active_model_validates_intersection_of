@@ -45,8 +45,9 @@ Or install it yourself as:
 
 ## Usage
 
-* `in:` parameter is required
-* `message:` is optional
+* `:in` - Parameter is required
+* `:within` - A synonym(alias) for `:in`
+* `:message` - Specifies a custom error message (optional)
 
 ```ruby
 class User < ActiveRecord::Base
@@ -58,7 +59,7 @@ end
 ```ruby
 class User < ActiveRecord::Base
   DEFAULT_PERMISSION = ["read", "write", "share"]
-  validates_intersection_of :permission, in: DEFAULT_PERMISSION, message: "invalid permission"
+  validates_intersection_of :permission, within: DEFAULT_PERMISSION, message: "invalid permission"
 end
 ```
 
