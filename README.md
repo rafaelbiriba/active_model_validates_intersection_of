@@ -59,7 +59,7 @@ require "active_model_validates_intersection_of"
 ```ruby
 class User < ActiveRecord::Base
   DEFAULT_PERMISSION = ["read", "write", "share"]
-  validates_intersection_of :permission, in: DEFAULT_PERMISSION
+  validates :permission, intersection: { in: DEFAULT_PERMISSION, message: "invalid permission" }
 end
 ```
 
