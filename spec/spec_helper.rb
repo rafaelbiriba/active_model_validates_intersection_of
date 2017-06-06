@@ -1,7 +1,7 @@
 require "bundler/setup"
 require "active_model"
 require "active_model_validates_intersection_of"
-require 'coveralls'
+require "coveralls"
 Coveralls.wear!
 
 RSpec.configure do |config|
