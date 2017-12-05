@@ -73,7 +73,7 @@ RSpec.describe IntersectionValidator do
 
       it "is valid" do
         list = SomeList.new
-        list.list = ['z']
+        list.list = ["z"]
         expect(list.valid?).to eq true
       end
 
@@ -127,6 +127,22 @@ RSpec.describe IntersectionValidator do
         list = SymList.new
         list.list = [8]
         expect(list.valid?).to eq false
+      end
+    end
+
+    context "validate with value as string" do
+      class SomeInvalidList
+        include ActiveModel::Validations
+        attr_accessor :list
+        validates_intersection_of :list, in: proc { ['test'] }, message: "not valid"
+      end
+
+      it "causes an exception" do
+        list = SomeInvalidList.new
+        list.list = "d"
+        expect {
+          list.valid?
+        }.to raise_error(ArgumentError, "value must be an array")
       end
     end
   end
