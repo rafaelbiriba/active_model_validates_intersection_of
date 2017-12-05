@@ -5,14 +5,15 @@ RSpec.describe IntersectionValidator do
   class BadSetupValidator
     include ActiveModel::Validations
     attr_accessor :list
-    validates :list, intersection: true
   end
-
-  let(:badsetup) { BadSetupValidator.new }
 
   context "setup" do
     describe "with neither :in nor :within configuration" do
-      it_behaves_like "invalid configuration"
+      it "raises argument error" do
+        expect {
+          BadSetupValidator.class_eval("validates :list, intersection: true")
+        }.to raise_error(ArgumentError)
+      end
     end
   end
 
@@ -59,6 +60,73 @@ RSpec.describe IntersectionValidator do
         describe "with an invalid list" do
           it_behaves_like "invalid object"
         end
+      end
+    end
+
+    context "validate with lambda" do
+      class SomeList
+        VALID_ARRAY = ["z", "x", 5 , 6]
+        include ActiveModel::Validations
+        attr_accessor :list
+        validates_intersection_of :list, in: lambda {|a| VALID_ARRAY }, message: "not valid"
+      end
+
+      it "is valid" do
+        list = SomeList.new
+        list.list = ['z']
+        expect(list.valid?).to eq true
+      end
+
+      it "is invalid" do
+        list = SomeList.new
+        list.list = ["G"]
+        expect(list.valid?).to eq false
+      end
+    end
+
+    context "validate with proc" do
+      class ProcList
+        VALID_ARRAY = ["z", "q", 5 , 3]
+        include ActiveModel::Validations
+        attr_accessor :list
+        validates_intersection_of :list, in: proc { VALID_ARRAY }, message: "not valid"
+      end
+
+      it "is valid" do
+        list = ProcList.new
+        list.list = ["q"]
+        expect(list.valid?).to eq true
+      end
+
+      it "is invalid" do
+        list = ProcList.new
+        list.list = [10]
+        expect(list.valid?).to eq false
+      end
+    end
+
+    context "validate with symbol" do
+      class SymList
+        VALID_ARRAY = ["z", "d", 5 , 6]
+        include ActiveModel::Validations
+        attr_accessor :list
+        validates_intersection_of :list, in: :valid_options, message: "not valid"
+
+        def valid_options
+          VALID_ARRAY
+        end
+      end
+
+      it "is valid" do
+        list = SymList.new
+        list.list = ["d"]
+        expect(list.valid?).to eq true
+      end
+
+      it "is invalid" do
+        list = SymList.new
+        list.list = [8]
+        expect(list.valid?).to eq false
       end
     end
   end
