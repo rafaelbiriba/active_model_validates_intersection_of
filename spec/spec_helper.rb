@@ -1,8 +1,12 @@
+require "simplecov"
+SimpleCov.start
+
+require "coveralls"
+Coveralls.wear!
+
 require "bundler/setup"
 require "active_model"
 require "active_model_validates_intersection_of"
-require "coveralls"
-Coveralls.wear!
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
