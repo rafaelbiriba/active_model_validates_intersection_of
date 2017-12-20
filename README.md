@@ -54,7 +54,7 @@ require "active_model_validates_intersection_of"
 
 ### Parameters
 
-* `:in` - Parameter is required
+* `:in` - Parameter is required. (Supports: Array, proc and lambda)
 * `:within` - *Optional:* A synonym(alias) for `:in`
 * `:message` - *Optional:* Specifies a custom error message
 
@@ -69,6 +69,10 @@ class User < ActiveRecord::Base
   # Using the alias validates_intersection_of
   validates_intersection_of :permission, in: DEFAULT_PERMISSION, message: "invalid permission"
   validates_intersection_of :permission, within: DEFAULT_PERMISSION, message: "invalid permission"
+
+  # proc and lambda support
+  validates_intersection_of :permission, in: proc { DEFAULT_PERMISSION }, message: "invalid permission"
+  validates_intersection_of :permission, in: lambda { |l| DEFAULT_PERMISSION }, message: "invalid permission"
 
   # Using the validator explicit:
   validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:permission], in: DEFAULT_PERMISSION
