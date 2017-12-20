@@ -1,9 +1,3 @@
-RSpec.shared_examples "invalid configuration" do
-  it "should raise an error" do
-    expect { badsetup.valid? }.to raise_error(ArgumentError)
-  end
-end
-
 RSpec.shared_examples "valid object" do
   it "the subject should be valid" do
     subject.list = valid_partial_array

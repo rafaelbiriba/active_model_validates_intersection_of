@@ -5,14 +5,15 @@ RSpec.describe ActiveModelValidatesIntersectionOf::Validator do
   class BadSetupValidator
     include ActiveModel::Validations
     attr_accessor :list
-    validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:list]
   end
-
-  let(:badsetup) { BadSetupValidator.new }
 
   context "setup" do
     describe "with neither :in nor :within configuration" do
-      it_behaves_like "invalid configuration"
+      it "raises argument error" do
+        expect {
+        BadSetupValidator.class_eval("validates_with ActiveModelValidatesIntersectionOf::Validator, attributes: [:list]")     
+        }.to raise_error(ArgumentError)
+      end
     end
   end
 
