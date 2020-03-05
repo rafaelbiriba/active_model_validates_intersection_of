@@ -18,9 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(spec)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activemodel", ">= 4.0.0"
-  spec.add_development_dependency "bundler", "~> 1.15"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_dependency "activemodel", ">= 5.0.0"
+  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "coveralls"
   spec.add_development_dependency "simplecov"
