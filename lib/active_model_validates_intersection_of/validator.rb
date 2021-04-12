@@ -13,7 +13,7 @@ module ActiveModelValidatesIntersectionOf
       raise ArgumentError, "value must be an array" unless value.is_a?(Array)
       
       if (value - members(record)).any?
-        record.errors.add(attribute, :inclusion, options.except(:in, :within).merge!(value: value))
+        record.errors.add(attribute, :inclusion, **options.except(:in, :within).merge!(value: value))
       end
     end
 
