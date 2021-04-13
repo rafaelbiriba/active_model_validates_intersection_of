@@ -1,3 +1,7 @@
+## v3.0.0 (2021-04-13)
+
+- Ruby 3 support.
+
 ## v1.2.0 (2017-12-20)
 
   - Support for proc and lambda
