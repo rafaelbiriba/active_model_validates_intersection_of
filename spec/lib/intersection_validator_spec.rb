@@ -37,6 +37,22 @@ RSpec.describe IntersectionValidator do
       describe "with an invalid list" do
         it_behaves_like "invalid object"
       end
+
+      context "when the model value is an array with nil value" do
+        class ListTest
+          VALID_ARRAY = ["z", "x", 5 , 6]
+          include ActiveModel::Validations
+          attr_accessor :list
+          validates_intersection_of :list, within: VALID_ARRAY, message: "not valid"
+        end
+  
+        subject { ListTest.new }
+  
+        it "should return as invalid" do
+          subject.list = [nil]
+          expect(subject.valid?).to eq(false)
+        end
+      end
     end
 
     context "with :within option" do
@@ -59,6 +75,22 @@ RSpec.describe IntersectionValidator do
 
         describe "with an invalid list" do
           it_behaves_like "invalid object"
+        end
+      end
+
+      context "when the model value is an array with nil value" do
+        class ListTest
+          VALID_ARRAY = ["z", "x", 5 , 6]
+          include ActiveModel::Validations
+          attr_accessor :list
+          validates_intersection_of :list, within: VALID_ARRAY, message: "not valid"
+        end
+  
+        subject { ListTest.new }
+  
+        it "should return as invalid" do
+          subject.list = [nil]
+          expect(subject.valid?).to eq(false)
         end
       end
     end
