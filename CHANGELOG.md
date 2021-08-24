@@ -1,3 +1,7 @@
+## v3.0.1 (2021-08-24)
+
+- Fixing model validation when the value is nil (eg: list = `[nil]` model.valid? should be false). (From issue: #9)
+
 ## v3.0.0 (2021-04-13)
 
 - Ruby 3 support.
